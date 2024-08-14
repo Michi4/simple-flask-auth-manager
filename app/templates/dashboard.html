@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Dashboard</h2>
+    <p>Welcome, {{ user.username }}!</p>
+    {% if user.is_admin %}
+    <p><a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-primary">Admin Dashboard</a></p>
+    {% endif %}
+    <h3>User Management</h3>
+    <ul class="list-group">
+        <li class="list-group-item"><a href="#">Edit Profile</a></li>
+        <li class="list-group-item"><a href="#">Change Password</a></li>
+        <li class="list-group-item">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                Delete Account
+            </button>
+        </li>
+    </ul>
+
+    <!-- Delete Account Modal -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteAccountModalLabel">Confirm Account Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete your account? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form action="{{ url_for('auth.delete_account') }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Delete Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

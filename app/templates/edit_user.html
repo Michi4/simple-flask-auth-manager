@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Edit User</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="subscription_plan" class="form-label">Subscription Plan</label>
+            <select class="form-control" id="subscription_plan" name="subscription_plan">
+                <option value="free" {% if user.subscription and user.subscription.plan == 'free' %}selected{% endif %}>Free</option>
+                <option value="basic" {% if user.subscription and user.subscription.plan == 'basic' %}selected{% endif %}>Basic</option>
+                <option value="premium" {% if user.subscription and user.subscription.plan == 'premium' %}selected{% endif %}>Premium</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update User</button>
+    </form>
+</div>
+{% endblock %}
